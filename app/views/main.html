@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-4">
+    <p class="lead">Search</p>
+    <input class="form-control sfTypeahead" type="text" options="typeaheadOptions" datasets="typeaheadData" ng-model="foo" ng-change="typeaheadSelected" placeholder="Enter address or PIN"/>
+  </div>
+  <div class="col-sm-8">
+    <table class="table table-striped table-hover">
+      <p class="lead">Permits</p>
+      <span>Click to view details</span>
+      <thead><tr><th>Permit</th><th>Code</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr ng-repeat="result in wellresults" ng-click="permitClicked({{result}})"><td>{{result.permit}}</td><td>{{result.prefix}}</td><td>{{result.sampledOn}}</td><tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <p class="lead">Details</p>
+     <table class="table table-condensed table-striped">
+      <thead><tr><th>Analyte Type</th><th>Chemical Name</th><th>Concentration</th><th>Qualifier</th><th>Detection Limit</th><th>EPI Standard</th></tr></thead>
+      <tbody>
+        <tr ng-repeat="detail in welldetails"><td>{{detail.analyteType}}</td><td>{{detail.chemName}}</td><td>{{detail.concentration}}{{detail.unit}}</td><td>{{detail.qualDesc}}</td><td>{{detail.limit}}{{detail.unit}}</td><td>{{detail.epi}}{{detail.unit}}</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
