@@ -4,8 +4,14 @@
     <input class="form-control sfTypeahead" type="text" options="typeaheadOptions" datasets="typeaheadData" ng-model="foo" ng-change="typeaheadSelected" placeholder="Enter address or PIN"/>
   </div>
   <div class="col-sm-8">
+      <p class="lead">Map</p>
+    <leaflet height="300" center="center" tiles="tiles" defaults="defaults"></leaflet>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
     <table class="table table-striped table-hover">
-      <p class="lead">Permits</p>
+      <p class="lead">Samples</p>
       <span>Click to view details</span>
       <thead><tr><th>Permit</th><th>Code</th><th>Date</th></tr></thead>
       <tbody>
@@ -16,7 +22,7 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <p class="lead">Details</p>
+    <p class="lead">Sample Details</p>
      <table class="table table-condensed table-striped">
       <thead><tr><th>Analyte Type</th><th>Chemical Name</th><th>Concentration</th><th>Qualifier</th><th>Detection Limit</th><th>EPI Standard</th></tr></thead>
       <tbody>

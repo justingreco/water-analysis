@@ -8,13 +8,45 @@
  * Controller of the waterAnalysisApp
  */
 angular.module('waterAnalysisApp')
-  .controller('MainCtrl', function ($scope,  $http, $location) {
+  .controller('MainCtrl', function ($scope,  $http, $location, leafletData) {
 
     $scope.wellresults = [];
     $scope.welldetails = [];
+    $scope.map = null;;
+    $scope.center = {
+          lat: 35.780556,
+          lng: -78.638889,
+          zoom: 13
+        };
+    $scope.defaults = {
+      maxZoom: 16
+    };
+    $scope.wells = null;
+    $scope.property = null;
+
+    leafletData.getMap().then(function (map) {
+      $scope.map = map;
+      $scope.wells = L.esri.dynamicMapLayer('http://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer').addTo(map);
+      map.on('click', function (e) {
+        $scope.wells.identify().on(map).at(e.latlng).run(function (error, featureCollection) {
+          if (featureCollection.features.length > 0) {
+            $scope.getWellResults(featureCollection.features[0].properties.PIN_NUM);
+          }
+        });
+      });
+    });
+    
+
+
+    $scope.tiles = {
+      url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+    }
+
 
 
   var address = new Bloodhound({
+
+
     datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
@@ -45,51 +77,13 @@ angular.module('waterAnalysisApp')
   });
 
 
-
-
-  // var numbers = new Bloodhound({
-  //   datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
-  //   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //   local: [
-  //     { num: 'one' },
-  //     { num: 'two' },
-  //     { num: 'three' },
-  //     { num: 'four' },
-  //     { num: 'five' },
-  //     { num: 'six' },
-  //     { num: 'seven' },
-  //     { num: 'eight' },
-  //     { num: 'nine' },
-  //     { num: 'ten' }
-  //   ]
-  // });
-
-  // initialize the bloodhound suggestion engine
- // numbers.initialize();
-
  address.initialize();
  pin.initialize();
 
-  // Allows the addition of local datum
-  // values to a pre-existing bloodhound engine.
- /* $scope.addValue = function () {
-    numbers.add({
-      num: 'twenty'
-    });
-  };*/
-
-  // Typeahead options object
   $scope.typeaheadOptions = {
     highlight: true
   };
 
-  // Single dataset example
-  // $scope.typeaheadData = {
-  //   displayKey: 'num',
-  //   source: numbers.ttAdapter()
-  // };
-
-  // Multiple dataset example
   $scope.typeaheadData = [
     {
       name: 'Address',
@@ -122,8 +116,10 @@ angular.module('waterAnalysisApp')
    }
 
    $scope.getWellResults = function (pin) {
+    $scope.zoomToProperty(pin);
     $http.get('http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellResults?pin='+pin+'&f=json').success(
       function (data) {
+        $scope.welldetails = [];
         $scope.wellresults = data.WellResults;
         console.log($scope.wellresults);
         if (data.WellResults.length > 0) {
@@ -142,11 +138,22 @@ angular.module('waterAnalysisApp')
     );
    }
 
+   $scope.zoomToProperty = function (pin) {
+    var query = L.esri.Tasks.query('http://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/0').where("PIN_NUM = '" + pin + "'").run(function (error, featureCollection) {
+      if ($scope.property) {
+        $scope.property.clearLayers();
+      }
+      
+      $scope.property = L.geoJson(featureCollection).addTo($scope.map);
+      $scope.map.fitBounds($scope.property.getBounds());
+    });
+   }
+
    $scope.typeaheadSelected = function (value, type) {
     if (type === 'address') {
       $scope.getPinFromAddress(value);
     } else if (type === 'pin') {
-
+      $scope.getWellResults(value);
     }
    }
 
@@ -157,6 +164,9 @@ angular.module('waterAnalysisApp')
    if ($location.search().pin) {
     $scope.getWellResults($location.search().pin);
    }
+
+
+
 
 
     $scope.awesomeThings = [

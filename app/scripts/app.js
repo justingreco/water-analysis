@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'siyfion.sfTypeahead'
+    'siyfion.sfTypeahead',
+    'leaflet-directive'
   ])
   .config(function ($routeProvider) {
     $routeProvider
