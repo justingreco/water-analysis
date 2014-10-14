@@ -318,7 +318,7 @@ doc.save('Test.pdf');*/
     angular.forEach($scope.welldetails, function (detail) {
       dd.content[7].table.body.push([detail.analyteType,detail.chemName,detail.concentration+detail.unit,detail.qualDesc,detail.limit+detail.unit,detail.epi+detail.unit]);
     });
- pdfMake.createPdf(dd).download('optionalName.pdf');
+ pdfMake.createPdf(dd).open();
    }
 
    $scope.countResults = function () {
