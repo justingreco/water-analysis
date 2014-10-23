@@ -71,6 +71,10 @@ margin-bottom: 20px;
 	margin-bottom: 5px;
 }
 
+.selected-row td{
+	background-color: rgb(225, 245, 255) !important;
+}
+
 
 @media screen and (max-width: 768px) {
 	body {
