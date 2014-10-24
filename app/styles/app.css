@@ -76,6 +76,18 @@ margin-bottom: 20px;
 }
 
 
+.warning-ie7 {
+	position:absolute;
+	background-color:#444;
+	color:white;
+	top:0;
+	bottom: 0;
+	left:0;
+	right:0;
+	z-index:10000;
+	padding: 40px;
+}
+
 @media screen and (max-width: 768px) {
 	body {
 		background-color: #fff;
