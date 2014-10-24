@@ -24,7 +24,7 @@
       <thead><tr><th>Permit</th><th>Code</th><th>Date</th></tr></thead>
       <tbody>
         <tr ng-repeat="result in wellresults" ng-click="permitClicked($index, {{result}})" ng-model="selectedResult"
-          ng-class="{ 'selected-row': $index == selectedIndex }"
+          ng-class="{ 'info': $index == selectedIndex }"
         ><td>{{result.permit}}</td><td>{{result.prefix}}</td><td>{{result.sampledOn}}</td><tr>
       </tbody>
     </table>
@@ -33,11 +33,11 @@
 <div class="row">
   <div class="col-sm-12">
     <p class="lead">Sample Details</p>
-     <table class="table table-condensed table-striped">
+     <table class="table table-condensed ">
       <colgroup><col width="20%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col></colgroup>
       <thead><tr><th ng-repeat="header in headers">{{header}}</th></tr></thead>
       <tbody>
-        <tr ng-repeat="detail in welldetails"><td>{{detail.analyteType}}</td><td>{{detail.chemName}}</td><td>{{detail.concentration}}{{detail.unit}}</td><td>{{detail.qualifier}}</td><td>{{detail.limit}}{{detail.unit}}</td><td>{{detail.epi}}{{detail.unit}}</td></tr>
+        <tr ng-repeat="detail in welldetails" ng-class="{'danger': detail.concentration > detail.limit, 'warning': detail.concentration == detail.limit && detail.qualifier != 'ABSENT', 'success': detail.concentration < detail.limit, 'success': detail.qualifier == 'ABSENT'}"><td>{{detail.analyteType}}</td><td>{{detail.chemName}}</td><td>{{detail.concentration}}{{detail.unit}}</td><td>{{detail.qualifier}}</td><td>{{detail.limit}}{{detail.unit}}</td><td>{{detail.epi}}{{detail.unit}}</td></tr>
       </tbody>
     </table>
     <button class="btn btn-primary" ng-click="print()" ng-disabled="countResults()"><span class="glyphicon glyphicon-print"></span> Print</button>
