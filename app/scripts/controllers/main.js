@@ -123,7 +123,6 @@ angular.module('waterAnalysisApp')
         function (data) {
           $scope.welldetails = [];
           $scope.wellresults = data.WellResults;
-          console.log($scope.wellresults);
           if (data.WellResults.length > 0) {
             $scope.alertClass = "alert-success";
             $scope.alertMessage = data.WellResults.length + ' sampling results found for this location';
@@ -141,7 +140,6 @@ angular.module('waterAnalysisApp')
       $http.get('http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellDetails?permit='+permit+'&code='+code+'&f=json').success(
         function (data) {
           $scope.welldetails = data.WellDetails;
-          console.log($scope.welldetails);
         }
         );
     }
