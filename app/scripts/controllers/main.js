@@ -20,8 +20,16 @@ angular.module('waterAnalysisApp')
     lng: -78.638889,
     zoom: 13
   };
+
+    var hour = new Date().getHours();
+    console.log(hour);
+    var baseUrl = 'http://{s}.basemaps.cartocdn.com/' + ((hour > 17 || hour < 6) ? 'dark' : 'light') + '_all/{z}/{x}/{y}.png';
+
   $scope.tiles = {
-    url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+    url: baseUrl,
+    minZoom: 4,
+    maxZoom: 16,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
   }
   $scope.legend = {
     url: "http://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer/legend?f=json",
