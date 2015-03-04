@@ -5,7 +5,7 @@ angular.module('waterAnalysisApp')
   $scope.alertClass = "alert-warning";
   $scope.wellresults = [];
   $scope.welldetails = [];
-  $scope.headers = ['Analyte Type','Chemical Name','Concentration','Qualifier','Detection Limit','EPI Stan'];
+  $scope.headers = ['Analyte Type','Chemical Name','Concentration','Qualifier','Detection Limit','Water Quality Standard'];
   $scope.selectedIndex = 0;
   $scope.defaults = {
     maxZoom: 16
