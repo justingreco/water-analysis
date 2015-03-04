@@ -31,8 +31,12 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-th {
+.table {
   text-align: center;
+}
+
+th {
+  text-align: center
 }
 
 /* Customize container */

@@ -37,7 +37,7 @@
       <colgroup><col width="20%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col><col width="16%"></col></colgroup>
       <thead><tr><th ng-repeat="header in headers">{{header}}</th></tr></thead>
       <tbody>
-        <tr ng-repeat="detail in welldetails" ng-class="{'danger': detail.concentration > detail.limit, 'warning': detail.concentration == detail.limit && detail.qualifier != 'ABSENT', 'success': detail.concentration < detail.limit, 'success': detail.qualifier == 'ABSENT'}"><td>{{detail.analyteType}}</td><td>{{detail.chemName}}</td><td>{{detail.concentration}} {{detail.unit}}</td><td>{{detail.qualifier}}</td><td>{{detail.limit}} {{detail.unit}}</td><td>{{detail.epi}} {{detail.unit}}</td></tr>
+        <tr ng-repeat="detail in welldetails" ng-class="{'danger': detail.concentration > detail.limit, 'warning': detail.concentration == detail.limit && detail.qualifier != 'ABSENT', 'success': detail.concentration < detail.limit, 'success': detail.qualifier == 'ABSENT'}"><td>{{detail.analyteType}}</td><td>{{detail.chemName}}</td><td>{{detail.concentration}} {{detail.unit}}</td><td>{{detail.qualDesc}}</td><td>{{detail.limit}} {{detail.unit}}</td><td>{{detail.epi}} {{detail.unit}}</td></tr>
       </tbody>
     </table>
     <button class="btn btn-primary" ng-click="print()" ng-disabled="countResults()"><span class="glyphicon glyphicon-save"></span> Save To PDF</button>
