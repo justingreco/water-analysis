@@ -296,7 +296,7 @@ angular.module('waterAnalysisApp')
         dd.content[7].table.body[0].push(header);
       });
       angular.forEach($scope.welldetails, function (detail) {
-        dd.content[7].table.body.push([detail.analyteType,detail.chemName,detail.concentration+detail.unit,detail.qualDesc,detail.limit+detail.unit,detail.epi+detail.unit]);
+        dd.content[7].table.body.push([detail.analyteType,detail.chemName,detail.concentration+detail.unit,detail.qualDesc,detail.limit+detail.unit,detail.epi+detail.epiUnit]);
       });
       pdfMake.createPdf(dd).open();
     }
