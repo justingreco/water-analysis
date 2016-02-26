@@ -32,7 +32,7 @@ angular.module('waterAnalysisApp')
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
   }
   $scope.legend = {
-    url: "http://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer/legend?f=json",
+    url: "https://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer/legend?f=json",
     legendClass: "info legend",
     position: "bottomleft",
   };  
@@ -51,7 +51,7 @@ angular.module('waterAnalysisApp')
 
   leafletData.getMap().then(function (map) {
     $scope.map = map;
-    $scope.wells = L.esri.dynamicMapLayer('http://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer').addTo(map);
+    $scope.wells = L.esri.dynamicMapLayer('https://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer').addTo(map);
 
   });
 
@@ -60,7 +60,7 @@ angular.module('waterAnalysisApp')
     datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-    	url: 'http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/AutoComplete?input=%QUERY&type=address&f=json',
+    	url: 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/AutoComplete?input=%QUERY&type=address&f=json',
     	filter: function (resp) {
     		var values = [];
     		angular.forEach(resp.Results, function (result) {
@@ -75,7 +75,7 @@ angular.module('waterAnalysisApp')
     datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-    	url: 'http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/AutoComplete?input=%QUERY&type=pin&f=json',
+    	url: 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/AutoComplete?input=%QUERY&type=pin&f=json',
     	filter: function (resp) {
     		var values = [];
     		angular.forEach(resp.Results, function (result) {
@@ -116,7 +116,7 @@ angular.module('waterAnalysisApp')
     });
 
     $scope.getPinFromAddress = function (address) {
-      $http.get('http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/RealEstateSearch?type=address&values=['+address+']&f=json').success(
+      $http.get('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/RealEstateSearch?type=address&values=['+address+']&f=json').success(
         function (data) {
           if (data.Accounts.length > 0) {
             $scope.getWellResults(data.Accounts[0].pin);
@@ -127,7 +127,7 @@ angular.module('waterAnalysisApp')
 
     $scope.getWellResults = function (pin) {
       $scope.zoomToProperty(pin);
-      $http.get('http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellResults?pin='+pin+'&f=json').success(
+      $http.get('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellResults?pin='+pin+'&f=json').success(
         function (data) {
           $scope.welldetails = [];
           $scope.wellresults = data.WellResults;
@@ -145,7 +145,7 @@ angular.module('waterAnalysisApp')
     }
 
     $scope.getWellDetails = function (permit, code) {
-      $http.get('http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellDetails?permit='+permit+'&code='+code+'&f=json').success(
+      $http.get('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE/WellDetails?permit='+permit+'&code='+code+'&f=json').success(
         function (data) {
           $scope.welldetails = data.WellDetails;
         }
@@ -153,7 +153,7 @@ angular.module('waterAnalysisApp')
     }
 
     $scope.zoomToProperty = function (pin) {
-      var query = L.esri.Tasks.query('http://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/0').where("PIN_NUM = '" + pin + "'").run(function (error, featureCollection) {
+      var query = L.esri.Tasks.query('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/0').where("PIN_NUM = '" + pin + "'").run(function (error, featureCollection) {
         if ($scope.property) {
           $scope.property.clearLayers();
         }
