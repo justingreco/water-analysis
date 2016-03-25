@@ -23,7 +23,7 @@ angular.module('waterAnalysisApp')
 
     var hour = new Date().getHours();
     console.log(hour);
-    var baseUrl = 'http://{s}.basemaps.cartocdn.com/' + ((hour > 17 || hour < 6) ? 'dark' : 'light') + '_all/{z}/{x}/{y}.png';
+    var baseUrl = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
 
   $scope.tiles = {
     url: baseUrl,
@@ -35,12 +35,12 @@ angular.module('waterAnalysisApp')
     url: "https://maps.raleighnc.gov/arcgis/rest/services/Environmental/Wells/MapServer/legend?f=json",
     legendClass: "info legend",
     position: "bottomleft",
-  };  
+  };
   $scope.$on('leafletDirectiveMap.click', function(event, args){
 
     $scope.wells.identify().on(args.leafletEvent.target).at(args.leafletEvent.latlng).run(function (error, featureCollection) {
       if (featureCollection.features.length > 0) {
-        $scope.getWellResults(featureCollection.features[0].properties.PIN_NUM);
+        $scope.getWellResults(featureCollection.features[0].properties.PIN);
       }
     });
   });
@@ -209,7 +209,7 @@ angular.module('waterAnalysisApp')
             text: $scope.selectedResult.code
           }
           ]
-        },      
+        },
         {
           alignment: 'justify',
           columns: [
@@ -220,7 +220,7 @@ angular.module('waterAnalysisApp')
             text: $scope.selectedResult.sampledOn
           }
           ]
-        },'\n',   
+        },'\n',
         {
           style: 'table',
           table: {
@@ -240,7 +240,7 @@ angular.module('waterAnalysisApp')
             ['NA', 'Not analyzed'],
             ['ND', 'Compound not quantified above detection limits'],
             ['R', 'Sample was rejected per quality control'],
-            ['U', 'Compound was analyzed for but not detected'],                                          
+            ['U', 'Compound was analyzed for but not detected'],
             ]
           }
         },
@@ -248,30 +248,30 @@ angular.module('waterAnalysisApp')
           style: 'header',
           text: 'Wake County Environmental Services Guide to understanding your inorganic water sample results',
           pageBreak: 'before'
-        },'\n',        
+        },'\n',
         {
           style: 'guide',
           table: {
             body: [
             ['Parameter', "MCL's *EPA Primary Standards", "Potential Health Effects from Ingestion of Water containing substance in levels above MCL's", "Potential Health Effects from Ingestion of Water containing substance in levels above MCL's Aesthetic limits #EPA Secondary Standards", 'Potential Effects from water usage', 'Treatment'],
             ['Acid water(low pH)', '', 'Generally does not present a health risk', '6.5-8.5', 'Bitter metallic taste, corrosion of pipes', 'Neutralizer'],
-            ['Alkalinity', 'No limit', 'Weak acid solution with feed pump and flow meter', '', '', 'Neutralizer'],      
-            ['Arsenic', '0.010', 'Skin damage or problems with circulatory systems, and may have increased risk of getting cancer', '', '', 'Reverse Osmosis system'],      
-            ['Barium', '2.0', 'Increase in blood pressure', '', '', 'Reverse Osmosis system'],     
-            ['Calcium', 'No limit', '', '', '', ''],   
+            ['Alkalinity', 'No limit', 'Weak acid solution with feed pump and flow meter', '', '', 'Neutralizer'],
+            ['Arsenic', '0.010', 'Skin damage or problems with circulatory systems, and may have increased risk of getting cancer', '', '', 'Reverse Osmosis system'],
+            ['Barium', '2.0', 'Increase in blood pressure', '', '', 'Reverse Osmosis system'],
+            ['Calcium', 'No limit', '', '', '', ''],
             ['Cadmium', '0.005', 'Increase in blood pressure', '', '', 'Reverse Osmosis system'],
-            ['Chloride', '', '', '250', 'Salty taste', 'Reverse Osmosis system'],      
-            ['Chromium', '', 'Increase in blood pressure', '', '', 'Reverse Osmosis system'],      
-            ['Fluoride', '', 'Bone disease (pain and tenderness of the bones); Children may get mottled teeth', '2.0', 'Tooth discoloration', 'Reverse Osmosis system'],     
-            ['Copper', '', 'Short term exposure: Gastrointestinal distress. Long term exposure: Liver or kidney damage', '1.0', 'Metallic taste, blue green staining', 'Reverse Osmosis system'], 
+            ['Chloride', '', '', '250', 'Salty taste', 'Reverse Osmosis system'],
+            ['Chromium', '', 'Increase in blood pressure', '', '', 'Reverse Osmosis system'],
+            ['Fluoride', '', 'Bone disease (pain and tenderness of the bones); Children may get mottled teeth', '2.0', 'Tooth discoloration', 'Reverse Osmosis system'],
+            ['Copper', '', 'Short term exposure: Gastrointestinal distress. Long term exposure: Liver or kidney damage', '1.0', 'Metallic taste, blue green staining', 'Reverse Osmosis system'],
             ['Hardness', 'No limit', 'Generally does not present a health risk', '', '', 'Water Softener'],
-            ['Iron', '', '', '0.3', 'Orange staining, metallic taste', 'Softener/iron precipitation and then filtration.'],      
-            ['Lead', '', 'Infants and children: Delays in physical or mental development; Adults: Kidney problems; high blood pressure', '', '', 'Reverse Osmosis system'],      
-            ['Magnesium', 'No limit', '', '', '', 'Reverse Osmosis system'],     
-            ['Manganese', '', '', '0.05', 'Black staining, metallic taste', 'Flushing of pipes or Reverse Osmosis System'], 
+            ['Iron', '', '', '0.3', 'Orange staining, metallic taste', 'Softener/iron precipitation and then filtration.'],
+            ['Lead', '', 'Infants and children: Delays in physical or mental development; Adults: Kidney problems; high blood pressure', '', '', 'Reverse Osmosis system'],
+            ['Magnesium', 'No limit', '', '', '', 'Reverse Osmosis system'],
+            ['Manganese', '', '', '0.05', 'Black staining, metallic taste', 'Flushing of pipes or Reverse Osmosis System'],
             ['Mercury', '', 'Kidney damage', '', '', 'Reverse Osmosis system'],
-            ['Nitrate/Nitrite', '', 'Infants below the age of six months who drink water containing nitrate in excess of the MCL could become seriously ill and, if untreated, may die. Symptoms include shortness of breath and blue-baby syndrome', '', '', 'Reverse Osmosis system'],      
-            ['Selenium', '', 'Hair or fingernail loss; numbness in fingers or toes; circulatory problems', '', '', 'Reverse Osmosis system'],      
+            ['Nitrate/Nitrite', '', 'Infants below the age of six months who drink water containing nitrate in excess of the MCL could become seriously ill and, if untreated, may die. Symptoms include shortness of breath and blue-baby syndrome', '', '', 'Reverse Osmosis system'],
+            ['Selenium', '', 'Hair or fingernail loss; numbness in fingers or toes; circulatory problems', '', '', 'Reverse Osmosis system'],
             ['Sodium', 'No limit', '', '', '', 'Reverse Osmosis system'],
             ['Zinc', '', '', '5.0', 'Metallic taste', 'Flushing of pipes or Reverse Osmosis System']
             ]
@@ -306,7 +306,7 @@ angular.module('waterAnalysisApp')
       angular.forEach($scope.welldetails, function (detail) {
         dd.content[7].table.body.push([detail.analyteType,detail.chemName,detail.concentration+detail.unit,detail.qualDesc,detail.limit+detail.unit,detail.epi+detail.epiUnit]);
       });
-      pdfMake.createPdf(dd).open();
+      pdfMake.createPdf(dd).download();
     }
     $scope.countResults = function () {
       return $scope.wellresults.length === 0;
