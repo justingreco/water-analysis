@@ -306,7 +306,7 @@ angular.module('waterAnalysisApp')
       angular.forEach($scope.welldetails, function (detail) {
         dd.content[7].table.body.push([detail.analyteType,detail.chemName,detail.concentration+detail.unit,detail.qualDesc,detail.limit+detail.unit,detail.epi+detail.epiUnit]);
       });
-      pdfMake.createPdf(dd).download();
+      pdfMake.createPdf(dd).open();
     }
     $scope.countResults = function () {
       return $scope.wellresults.length === 0;
