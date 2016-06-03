@@ -8,7 +8,7 @@ angular.module('waterAnalysisApp')
   $scope.headers = ['Analyte Type','Chemical Name','Concentration','Qualifier','Detection Limit','Water Quality Standard'];
   $scope.selectedIndex = 0;
   $scope.defaults = {
-    maxZoom: 16
+    maxZoom: 18
   };
   $scope.wells = null;
   $scope.property = null;
@@ -28,7 +28,7 @@ angular.module('waterAnalysisApp')
   $scope.tiles = {
     url: baseUrl,
     minZoom: 4,
-    maxZoom: 16,
+    maxZoom: 18,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
   }
   $scope.legend = {
