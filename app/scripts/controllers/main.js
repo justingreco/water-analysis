@@ -38,7 +38,7 @@ angular.module('waterAnalysisApp')
   };
   $scope.$on('leafletDirectiveMap.click', function(event, args){
 
-    $scope.wells.identify().on(args.leafletEvent.target).at(args.leafletEvent.latlng).run(function (error, featureCollection) {
+    $scope.wells.identify().tolerance(20).on(args.leafletEvent.target).at(args.leafletEvent.latlng).run(function (error, featureCollection) {
       if (featureCollection.features.length > 0) {
         $scope.getWellResults(featureCollection.features[0].properties.PIN);
       }
