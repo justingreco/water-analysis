@@ -17,6 +17,10 @@
         <link rel="stylesheet" href="styles/app.css">
     <link rel="stylesheet" href="styles/typeahead.js-bootstrap.css">
     <!-- endbuild -->
+    <script type="text/javascript">
+      console.log(window.location);
+      window.location.replace('http://maps.wakegov.com/water-analysis/' + window.location.hash);
+    </script>    
   </head>
   <body ng-app="waterAnalysisApp">
 <!--[if lt IE 9]>
